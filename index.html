@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CT Athlon - Centro de Treinamento</title>
+    <meta name="description" content="CT Athlon - Treinamento estruturado e alta performance física em Maricá.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:ital,wght@0,900;1,900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-cyan': '#00e5ff',
+                        'brand-blue': '#0072ff',
+                        'brand-sand': '#d2c9b1',
+                        'bg-main': '#000000',
+                        'bg-card': '#0d0d0d',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @layer base {
+            body {
+                background-color: #000000;
+                color: #ffffff;
+            }
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #00e5ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-main {
+            background-color: #00e5ff;
+            color: #000000;
+            font-weight: 900;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+        }
+        .btn-main:hover {
+            opacity: 0.9;
+        }
+        .btn-main:active {
+            transform: scale(0.95);
+        }
+
+        .btn-outline {
+            border: 1px solid #00e5ff;
+            color: #00e5ff;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-outline:hover {
+            background-color: rgba(0, 229, 255, 0.1);
+        }
+
+        .btn-sand {
+            border: 1px solid #d2c9b1;
+            color: #d2c9b1;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn-sand:hover {
+            background-color: rgba(210, 201, 177, 0.1);
+        }
+
+        .card-dark {
+            background-color: rgba(13, 13, 13, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .sand-border {
+            border-left: 2px solid #d2c9b1;
+        }
+
+        .accent-glow {
+            position: absolute;
+            pointer-events: none;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(210, 201, 177, 0.05) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .bento-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* FAQ Transition */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+            opacity: 0;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased overflow-x-hidden">
+
+    <!-- Background Glows -->
+    <div class="accent-glow top-[-200px] right-[-100px]"></div>
+    <div class="accent-glow bottom-[-200px] left-[-100px]"></div>
+
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 border-b border-white/0 py-6">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-4 group">
+                <div class="w-12 h-12 overflow-hidden rounded-full border border-brand-sand/30 group-hover:border-brand-sand transition-colors">
+                    <img src="public/Screenshot_20260421_025345_Instagram.jpg" alt="Logo Athlon" class="w-full h-full object-cover">
+                </div>
+                <div class="hidden sm:block">
+                    <h2 class="text-xl font-black tracking-tight text-white uppercase leading-none font-display italic">ATHLON</h2>
+                    <span class="text-[10px] font-bold text-brand-sand tracking-[0.4em] uppercase">Centro de Treinamento</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex items-center gap-8">
+                <a href="#sobre" class="text-xs font-bold tracking-widest text-gray-400 capitalize hover:text-brand-sand transition-colors">Sobre</a>
+                <a href="#diferenciais" class="text-xs font-bold tracking-widest text-gray-400 capitalize hover:text-brand-sand transition-colors">Diferenciais</a>
+                <a href="#galeria" class="text-xs font-bold tracking-widest text-gray-400 capitalize hover:text-brand-sand transition-colors">Galeria</a>
+                <a href="#horarios" class="text-xs font-bold tracking-widest text-gray-400 capitalize hover:text-brand-sand transition-colors">Horários</a>
+                <a href="#cla" class="text-xs font-bold tracking-widest text-gray-400 capitalize hover:text-brand-sand transition-colors">Clã Personal</a>
+                <a href="#faq" class="text-xs font-bold tracking-widest text-gray-400 capitalize hover:text-brand-sand transition-colors">FAQ</a>
+                <a href="https://wa.me/5521969514283?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20do%20CT%20Athlon." target="_blank" class="btn-main px-6 py-2.5 rounded-none text-xs">Treine Conosco</a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="menu-toggle" class="lg:hidden text-white p-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" id="menu-icon"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-bg-main pt-24 px-6 translate-x-full transition-transform duration-500 lg:hidden">
+        <nav class="flex flex-col gap-8 text-center mt-10">
+            <a href="#sobre" class="mobile-link text-3xl font-black uppercase text-white hover:text-brand-cyan tracking-tighter">Sobre</a>
+            <a href="#diferenciais" class="mobile-link text-3xl font-black uppercase text-white hover:text-brand-cyan tracking-tighter">Diferenciais</a>
+            <a href="#galeria" class="mobile-link text-3xl font-black uppercase text-white hover:text-brand-cyan tracking-tighter">Galeria</a>
+            <a href="#horarios" class="mobile-link text-3xl font-black uppercase text-white hover:text-brand-cyan tracking-tighter">Horários</a>
+            <a href="#cla" class="mobile-link text-3xl font-black uppercase text-white hover:text-brand-cyan tracking-tighter">Clã Personal</a>
+            <a href="#faq" class="mobile-link text-3xl font-black uppercase text-white hover:text-brand-cyan tracking-tighter">FAQ</a>
+            <a href="https://wa.me/5521969514283?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20do%20CT%20Athlon." target="_blank" class="mt-6 py-5 bg-brand-cyan text-black font-black uppercase tracking-widest text-lg">Treine Conosco</a>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img src="public/hero-bg.jpg" alt="Ambiente de Treino" class="w-full h-full object-cover opacity-30 scale-105" onerror="this.src='https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2670&auto=format&fit=crop'">
+                <div class="absolute inset-0 bg-gradient-to-t from-bg-main via-bg-main/60 to-transparent"></div>
+            </div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+                <div class="reveal">
+                    <div class="inline-flex items-center gap-3 px-4 py-1.5 bg-brand-sand/10 border border-brand-sand/20 rounded-full text-[10px] font-bold text-brand-sand uppercase tracking-[0.3em] mb-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        <span>O Clã dos Fortes</span>
+                    </div>
+                    <h1 class="text-5xl md:text-8xl lg:text-9xl font-black leading-[0.85] mb-10 uppercase italic tracking-tighter text-white font-display">
+                        TREINAMENTO<br>
+                        ESTRUTURADO,<br>
+                        <span class="text-brand-cyan">AMBIENTE FORTE.</span>
+                    </h1>
+                    <div class="max-w-md mx-auto sand-border pl-6 text-left mb-12">
+                        <p class="text-gray-400 text-lg md:text-xl font-medium leading-relaxed">
+                            Foco total em resultados consistentes unindo medicina e alta performance física em Maricá.
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <a href="https://wa.me/5521969514283?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20do%20CT%20Athlon." target="_blank" class="w-full sm:w-auto px-12 py-6 btn-main text-xl tracking-tighter flex items-center justify-center gap-3">
+                            Quero Treinar no Athlon
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        </a>
+                        <a href="#cla" class="w-full sm:w-auto px-12 py-6 btn-sand text-xl tracking-tighter font-bold uppercase">
+                            Área do Personal
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sobre Section -->
+        <section id="sobre" class="py-32 bg-bg-main">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div class="reveal">
+                        <div class="aspect-[4/5] bg-bg-card rounded-2xl overflow-hidden border border-white/10 relative group">
+                            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2670&auto=format&fit=crop" alt="Treinamento Athlon" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-brand-cyan/20 blur-3xl rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <div class="reveal" style="transition-delay: 0.2s;">
+                        <h2 class="text-4xl md:text-5xl font-display font-black uppercase italic mb-8">
+                            Foco em <span class="text-brand-cyan">Resultados</span>,<br>
+                            Compromisso com a Saúde.
+                        </h2>
+                        <div class="space-y-6 text-gray-400 text-lg leading-relaxed">
+                            <p>No CT Athlon, não vendemos apenas mensalidades. Entregamos um ambiente estruturado projetado para quem leva o treinamento a sério. Aqui, a força física caminha lado a lado com a medicina e a ciência esportiva.</p>
+                            <p>Nossa metodologia prioriza a técnica impecável e a progressão constante, garantindo que cada gota de suor se transforme em resultados visíveis e duradouros.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diferenciais Section -->
+        <section id="diferenciais" class="py-32 bg-bg-main relative">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-20 reveal">
+                    <h2 class="text-xs font-bold text-brand-sand uppercase tracking-[0.5em] mb-4">Por que nos escolher</h2>
+                    <h3 class="text-4xl md:text-6xl font-black font-display uppercase italic tracking-tighter leading-tight">
+                        A estrutura que sua<br><span class="text-brand-cyan">evolução exige.</span>
+                    </h3>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Item 1 -->
+                    <div class="reveal card-dark p-8 rounded-2xl hover:border-brand-sand/30 transition-all group">
+                        <div class="mb-6 transform group-hover:scale-110 transition-transform text-brand-cyan">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6.5 6.5 11 11"></path><path d="m21 21-1-1"></path><path d="m3 3 1 1"></path><path d="m18 22 4-4"></path><path d="m2 6 4-4"></path><path d="m3 10 7-7"></path><path d="m14 21 7-7"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-black uppercase mb-3 tracking-tight group-hover:text-brand-cyan transition-colors">Maquinário de Ponta</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Equipamentos de última geração selecionados para biomecânica perfeita e máxima eficiência.</p>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="reveal card-dark p-8 rounded-2xl hover:border-brand-sand/30 transition-all group" style="transition-delay: 0.1s;">
+                        <div class="mb-6 transform group-hover:scale-110 transition-transform text-brand-sand">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                        </div>
+                        <h4 class="text-xl font-black uppercase mb-3 tracking-tight group-hover:text-brand-cyan transition-colors">Foco em Resultados</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Metodologia estruturada que une medicina e ciência esportiva para sua evolução real.</p>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="reveal card-dark p-8 rounded-2xl hover:border-brand-sand/30 transition-all group" style="transition-delay: 0.2s;">
+                        <div class="mb-6 transform group-hover:scale-110 transition-transform text-brand-cyan">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-black uppercase mb-3 tracking-tight group-hover:text-brand-cyan transition-colors">Ambiente de Elite</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Climatização ideal, sonorização imersiva e atmosfera que motiva cada repetição.</p>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="reveal card-dark p-8 rounded-2xl hover:border-brand-sand/30 transition-all group" style="transition-delay: 0.3s;">
+                        <div class="mb-6 transform group-hover:scale-110 transition-transform text-brand-sand">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-black uppercase mb-3 tracking-tight group-hover:text-brand-cyan transition-colors">Segurança & Saúde</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Protocolos rigorosos e equipe preparada para garantir que seu treino seja produtivo e seguro.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeria Section -->
+        <section id="galeria" class="py-32 bg-bg-card relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-bg-main to-transparent"></div>
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 reveal">
+                    <div>
+                        <h2 class="text-xs font-bold text-brand-sand uppercase tracking-[0.5em] mb-4">Inside the CT</h2>
+                        <h3 class="text-4xl md:text-6xl font-black font-display uppercase italic tracking-tighter leading-none">Galeria de<br><span class="text-brand-cyan">Performance.</span></h3>
+                    </div>
+                    <p class="max-w-md text-gray-500 text-sm uppercase font-bold tracking-widest text-right">Ambiente projetado para quem não aceita o medíocre. Onde a força ganha forma.</p>
+                </div>
+
+                <div class="bento-grid">
+                    <div class="reveal col-span-2 row-span-2 group overflow-hidden rounded-2xl">
+                        <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2670&auto=format&fit=crop" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="reveal col-span-2 group overflow-hidden rounded-2xl" style="transition-delay: 0.1s;">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2670&auto=format&fit=crop" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="reveal group overflow-hidden rounded-2xl" style="transition-delay: 0.2s;">
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2670&auto=format&fit=crop" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="reveal group overflow-hidden rounded-2xl" style="transition-delay: 0.3s;">
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2670&auto=format&fit=crop" class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Horários e Localização -->
+        <section id="horarios" class="py-32 bg-bg-main">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 reveal">
+                        <div class="flex items-center gap-4 mb-4 text-brand-cyan">
+                            <div class="h-[2px] w-12 bg-brand-cyan"></div>
+                            <span class="font-bold uppercase tracking-widest text-xs">Padrão Athlon</span>
+                        </div>
+                        <h2 class="text-5xl md:text-7xl font-black font-display uppercase mb-10 italic tracking-tighter">ABERTO PARA A<br><span class="text-brand-sand">SUA EVOLUÇÃO.</span></h2>
+                        
+                        <div class="card-dark p-10 rounded-2xl mb-8 relative group overflow-hidden">
+                            <h3 class="text-brand-cyan text-xs font-bold uppercase tracking-widest mb-8 flex items-center gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                Horário de Operação
+                            </h3>
+                            <div class="space-y-6">
+                                <div class="flex justify-between items-center py-2 border-b border-white/5">
+                                    <span class="text-gray-400 font-bold uppercase text-xs sm:text-sm tracking-widest">Segunda a Sexta</span>
+                                    <span class="text-white font-black text-sm sm:text-lg italic">05h30 às 22h00</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-white/5">
+                                    <span class="text-gray-400 font-bold uppercase text-xs sm:text-sm tracking-widest">Sábados e Feriados</span>
+                                    <span class="text-white font-black text-sm sm:text-lg italic">07h00 às 13h00</span>
+                                </div>
+                                <div class="flex justify-between items-center py-2 border-b border-white/5">
+                                    <span class="text-gray-400 font-bold uppercase text-xs sm:text-sm tracking-widest">Domingos</span>
+                                    <span class="text-white font-black text-sm sm:text-lg italic">09h00 às 13h00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 reveal" style="transition-delay: 0.2s;">
+                        <div class="card-dark rounded-2xl overflow-hidden border border-white/5 flex flex-col h-full ring-1 ring-white/10">
+                            <div class="h-[300px] w-full relative">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.696!2d-42.923!3d-22.969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9990666999999999%3A0x999999999999999!2sRua+34%2C+Itaipua%C3%A7u%2C+Maric%C3%A1+-+RJ!5e0!3m2!1spt-BR!2sbr!4v1713670000000" width="100%" height="100%" style="border: 0; filter: grayscale(1) invert(0.9) contrast(1.2) hue-rotate(180deg);" allowfullscreen="" loading="lazy" class="opacity-60 hover:opacity-100 transition-opacity duration-500"></iframe>
+                            </div>
+                            <div class="p-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#d2c9b1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-6"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                <h4 class="text-2xl font-black uppercase font-display mb-4 italic tracking-tight">Visite-nos em Maricá</h4>
+                                <p class="text-gray-400 text-lg mb-8 uppercase font-bold tracking-widest text-xs leading-loose">Itaipuaçu, Rua 34 - Maricá</p>
+                                <a href="https://www.google.com/maps/dir/?api=1&destination=Rua+34+Itaipuaçu+Maricá" target="_blank" class="btn-main w-full py-5 block text-center font-black tracking-widest">Como Chegar (GPS)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Clã Athlon Section -->
+        <section id="cla" class="py-32 relative bg-bg-card border-y border-white/5 overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none opacity-20">
+                <img src="public/bg-personal.jpg" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=2670&auto=format&fit=crop'">
+            </div>
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal">
+                        <span class="inline-block px-4 py-1.5 bg-brand-cyan/20 border border-brand-cyan/30 text-brand-cyan text-[10px] font-bold uppercase tracking-[0.3em] rounded-full mb-8">Vantagens Exclusivas</span>
+                        <h2 class="text-5xl md:text-7xl font-black font-display uppercase mb-10 italic tracking-tighter leading-[0.9]">Faça parte do <br><span class="text-brand-sand">Clã Athlon.</span></h2>
+                        <p class="text-gray-400 text-lg md:text-xl mb-12 font-medium leading-relaxed max-w-lg">Parceria real para treinadores que buscam excelência. Caminhe lado a lado conosco sem taxas de repasse.</p>
+                        <div class="space-y-5 mb-12">
+                            <div class="flex items-center gap-4 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                <span class="text-sm font-bold uppercase tracking-widest text-gray-300">Zero taxa de repasse</span>
+                            </div>
+                            <div class="flex items-center gap-4 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                <span class="text-sm font-bold uppercase tracking-widest text-gray-300">Uniforme oficial</span>
+                            </div>
+                            <div class="flex items-center gap-4 group">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                <span class="text-sm font-bold uppercase tracking-widest text-gray-300">Acesso total a estrutura</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal card-dark p-12 rounded-3xl border-l-[8px] border-l-brand-cyan bg-gradient-to-br from-bg-card to-black" style="transition-delay: 0.2s;">
+                        <h3 class="text-3xl font-black font-display uppercase mb-6 italic tracking-tight">Requisitos do Clã</h3>
+                        <div class="space-y-8 mb-10">
+                            <div class="sand-border pl-6">
+                                <h5 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Documentação</h5>
+                                <p class="text-white font-bold uppercase tracking-widest text-sm">Assinatura de Contrato Presencial</p>
+                            </div>
+                            <div class="sand-border pl-6">
+                                <h5 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Qualificação</h5>
+                                <p class="text-white font-bold uppercase tracking-widest text-sm">Copia de CREF e SBV Válidos</p>
+                            </div>
+                        </div>
+                        <a href="https://wa.me/5521999650629?text=Ol%C3%A1%2C%20sou%20Personal%20Trainer%20e%20tenho%20interesse%20em%20fazer%20parte%20do%20cl%C3%A3%20Athlon." target="_blank" class="w-full py-6 btn-main text-xl tracking-tighter flex items-center justify-center gap-3">
+                            Sou Personal Trainer
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="py-32 bg-bg-main">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-xs font-bold text-brand-sand uppercase tracking-[0.5em] mb-4">Central de Dúvidas</h2>
+                    <h3 class="text-4xl md:text-5xl font-black font-display uppercase italic tracking-tighter">F.A.Q.</h3>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <div class="faq-item reveal card-dark rounded-xl" style="transition-delay: 0.1s;">
+                        <button class="faq-toggle w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors">
+                            <span class="font-bold uppercase tracking-widest text-xs sm:text-sm">Quais são as modalidades oferecidas?</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 chevron"><path d="m6 9 6 6 6-6"></path></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="p-6 text-gray-400 text-sm leading-relaxed sand-border ml-6 my-2">
+                                Focamos em musculação de alta performance, treinamento estruturado e acompanhamento especializado para resultados consistentes.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- FAQ 2 -->
+                    <div class="faq-item reveal card-dark rounded-xl" style="transition-delay: 0.2s;">
+                        <button class="faq-toggle w-full p-6 flex justify-between items-center text-left hover:bg-white/5 transition-colors">
+                            <span class="font-bold uppercase tracking-widest text-xs sm:text-sm">Vocês aceitam Gympass ou TotalPass?</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 chevron"><path d="m6 9 6 6 6-6"></path></svg>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="p-6 text-gray-400 text-sm leading-relaxed sand-border ml-6 my-2">
+                                Atualmente trabalhamos com planos próprios focados em exclusividade e atendimento premium. Consulte a recepção para saber mais sobre nossos pacotes.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="pt-32 pb-16 border-t border-white/5 bg-bg-main relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-16 mb-20">
+                <div class="col-span-1 lg:col-span-2">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-16 h-16 overflow-hidden rounded-full border-2 border-brand-sand">
+                            <img src="public/Screenshot_20260421_025345_Instagram.jpg" alt="Athlon Logo" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="text-3xl font-black font-display uppercase italic leading-none tracking-tighter">Athlon CT</h4>
+                            <span class="text-[10px] font-bold text-brand-sand uppercase tracking-[0.4em]">Maricá, RJ</span>
+                        </div>
+                    </div>
+                    <p class="max-w-md text-gray-500 font-bold uppercase text-[10px] tracking-[0.3em] leading-loose mb-10">
+                        Uma nova era de treinamento chegou a Maricá. Metodologia estruturada, máquinas de alta performance e um grupo focado em resultados.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="https://wa.me/5521969514283?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20planos%20do%20CT%20Athlon." target="_blank" class="btn-sand w-12 h-12 flex items-center justify-center p-2.5 group">
+                            <img src="https://cdn.simpleicons.org/whatsapp/white" alt="WhatsApp" class="w-full h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity">
+                        </a>
+                        <a href="https://instagram.com/athlon.ct" target="_blank" class="btn-sand w-12 h-12 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                        </a>
+                        <a href="mailto:ctathlon@gmail.com" class="btn-sand w-12 h-12 flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.5em] mb-10">Explorar</h5>
+                    <ul class="space-y-4">
+                        <li><a href="#sobre" class="text-xs font-bold uppercase tracking-widest text-gray-600 hover:text-brand-cyan transition-colors">Sobre</a></li>
+                        <li><a href="#diferenciais" class="text-xs font-bold uppercase tracking-widest text-gray-600 hover:text-brand-cyan transition-colors">Diferenciais</a></li>
+                        <li><a href="#galeria" class="text-xs font-bold uppercase tracking-widest text-gray-600 hover:text-brand-cyan transition-colors">Galeria</a></li>
+                        <li><a href="#horarios" class="text-xs font-bold uppercase tracking-widest text-gray-600 hover:text-brand-cyan transition-colors">Horários</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-[10px] font-bold text-gray-400 uppercase tracking-[0.5em] mb-10">Status</h5>
+                    <div class="p-4 border border-brand-cyan/20 rounded-lg bg-brand-cyan/5">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-2 h-2 bg-brand-cyan rounded-full animate-pulse"></div>
+                            <span class="text-[10px] font-black uppercase text-brand-cyan tracking-widest">Matrículas Abertas</span>
+                        </div>
+                        <p class="text-[9px] text-gray-500 font-bold uppercase tracking-widest">
+                            Equipe pronta para te receber. Clique em Treine Conosco e comece hoje.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-700">
+                <span>© 2026 ATHLON CENTRO DE TREINAMENTO - DESDE DEZ/2025</span>
+                <div class="flex gap-8">
+                    <span>ITAIPUAÇU, RUA 34 - MARICÁ</span>
+                    <a href="#cla" class="hover:text-brand-sand transition-colors">QUERO SER PERSONAL</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Header Scroll Logic
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                header.classList.add('bg-bg-main/90', 'backdrop-blur-xl', 'py-3', 'border-white/10', 'shadow-2xl');
+                header.classList.remove('bg-transparent', 'py-6', 'border-white/0');
+            } else {
+                header.classList.remove('bg-bg-main/90', 'backdrop-blur-xl', 'py-3', 'border-white/10', 'shadow-2xl');
+                header.classList.add('bg-transparent', 'py-6', 'border-white/0');
+            }
+        });
+
+        // Mobile Menu Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        let isMenuOpen = false;
+
+        menuToggle.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('translate-x-full');
+                menuIcon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+            } else {
+                mobileMenu.classList.add('translate-x-full');
+                menuIcon.innerHTML = '<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>';
+            }
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.add('translate-x-full');
+                menuIcon.innerHTML = '<line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line>';
+            });
+        });
+
+        // FAQ Toggle Logic
+        document.querySelectorAll('.faq-toggle').forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const item = toggle.parentElement;
+                const isActive = item.classList.contains('active');
+                
+                // Close all others
+                document.querySelectorAll('.faq-item').forEach(otherItem => {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.chevron').classList.remove('rotate-180');
+                });
+
+                if (!isActive) {
+                    item.classList.add('active');
+                    toggle.querySelector('.chevron').classList.add('rotate-180');
+                }
+            });
+        });
+
+        // Reveal on Scroll Logic
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
